@@ -13,9 +13,9 @@ export class PokeService {
   public getAllPokemon(req: Request, res: Response) {
     Pokemon.find({}, (error: Error, pokemon: MongooseDocument) => {
       if (error) {
-        res.send(error);
+        res.status(400).send(error);
       }
-      res.json(pokemon);
+      res.status(200).json(pokemon);
     });
   }
 
@@ -33,10 +33,10 @@ export class PokeService {
     const pokemonID = req.params.id;
     Pokemon.findByIdAndDelete(pokemonID, (error: Error, deleted: any) => {
       if (error) {
-        res.send(error);
+        res.status(400).send(error);
       }
       const message = deleted ? "Deleted successfully" : "Pokemon not found :(";
-      res.send(message);
+      res.status(200).send(message);
     });
   }
 
